@@ -1,0 +1,31 @@
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ bool Sym(TreeNode* A,TreeNode* B)
+ {
+     if(A==NULL && B==NULL)
+     return true;
+     if(A==NULL || B==NULL)
+     return false;
+     if(A->val==B->val)
+     {
+         if(Sym(A->left,B->right)&& Sym(A->right,B->left))
+         return true;
+     }
+     return false;
+ }
+int Solution::isSymmetric(TreeNode* A) {
+    bool ans=Sym(A,A);
+    if(ans==true)
+    return 1;
+    else
+    return 0;
+}

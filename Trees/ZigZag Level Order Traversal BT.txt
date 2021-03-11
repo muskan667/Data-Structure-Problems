@@ -1,0 +1,33 @@
+Given a binary tree, return the zigzag level order traversal of its nodes’ values. (ie, from left to right, then right to left for the next level and alternate between).
+
+
+vector<vector<int> > Solution::zigzagLevelOrder(TreeNode* A) {
+  vector<vector<int>> ans;
+    stack<TreeNode *> stk1,stk2;
+    stk1.push(A);
+    int ltr = 0;
+    while(!stk1.empty())
+    {
+        vector<int> curr;
+        while(!stk1.empty())
+        {
+            TreeNode *temp = stk1.top();
+            curr.push_back(temp->val);
+            stk1.pop();
+            if(ltr == 1)
+            {
+                if(temp->right) stk2.push(temp->right);
+                if(temp->left) stk2.push(temp->left);
+            }
+            else
+            {
+                if(temp->left) stk2.push(temp->left);
+                if(temp->right) stk2.push(temp->right);
+            }
+        }
+        ltr = 1-ltr;
+        swap(stk1,stk2);
+        ans.push_back(curr);
+    }
+    return ans;
+}

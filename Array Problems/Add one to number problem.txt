@@ -1,0 +1,38 @@
+Given a non-negative number represented as an array of digits,
+
+add 1 to the number ( increment the number represented by the digits ).
+
+The digits are stored such that the most significant digit is at the head of the list.
+
+
+vector<int> Solution::plusOne(vector<int> &A) {
+    int K = 1;
+reverse(A.begin(), A.end());
+for (int i = 0; i < A.size(); i++) {
+A[i] += K;
+K = A[i] / 10;
+A[i] %= 10;
+}
+while (K) {
+A.push_back(K % 10);
+K /= 10;
+}
+reverse(A.begin(), A.end());
+int index=0;
+for(int i=0;i<A.size();i++)
+{
+if(A[i]!=0)
+{
+index=i;
+break;
+}
+}
+vector <int> B;
+for(int i=index;i<A.size();i++)
+{
+B.push_back(A[i]);
+}
+return B;
+
+
+}

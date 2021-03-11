@@ -1,0 +1,25 @@
+Given a positive integer n and a string s consisting only of letters D or I, you have to find any permutation of first n positive integer that satisfy the given input string.
+
+D means the next number is smaller, while I means the next number is greater.
+
+vector<int> Solution::findPerm(const string A, int B) {
+    vector<int>ans;
+    int end=B;
+    int start=1;
+    for(int i=B-2;i>=0;i--)
+    {
+        if(A[i]=='I')
+        {
+            ans.push_back(end);
+            end--;
+        }
+        else
+        {
+            ans.push_back(start);
+            start++;
+        }
+    }
+    ans.push_back(end);
+    reverse(ans.begin(),ans.end());
+    return ans;
+}

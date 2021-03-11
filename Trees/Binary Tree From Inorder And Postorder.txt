@@ -1,0 +1,30 @@
+Given inorder and postorder traversal of a tree, construct the binary tree.
+
+
+ int index(vector<int> &inorder,int val,int start,int end)
+ {
+     for(auto i=start;i<=end;i++)
+     {
+         if(inorder[i]==val)
+         {
+             return i;
+         }
+     }
+ }
+TreeNode* make(vector<int> &inorder,vector<int> &postorder ,int start,int end, int &p)
+{
+    if(start>end)
+    return NULL;
+    TreeNode* root=new TreeNode(postorder[p--]);
+    if(start==end)
+    return root;
+    int ind=index(inorder,root->val,start,end);
+    root->right=make(inorder,postorder,ind+1,end,p);
+    root->left=make(inorder,postorder,start,ind-1,p);
+    return root;
+}
+ 
+TreeNode* Solution::buildTree(vector<int> &A, vector<int> &B) {
+    int p=B.size()-1;
+    return make(A,B,0,A.size()-1,p);
+}

@@ -1,0 +1,32 @@
+Given a binary tree, return the inorder traversal of its nodes’ values.
+
+
+vector<int> Solution::inorderTraversal(TreeNode* A) {
+    vector<int>sol;
+    stack<TreeNode* >st;
+    TreeNode* curr=A;
+    bool done=0;
+    while(!done)
+    {
+        if(curr!=NULL)
+        {
+            st.push(curr);
+            curr=curr->left;
+        }
+        else
+        {
+            if(!st.empty())
+            {
+                curr=st.top();
+                sol.push_back(curr->val);
+                curr=curr->right;
+                st.pop();
+            }
+            else
+            {
+                done=1;
+            }
+        }
+    }
+    return sol;
+}
