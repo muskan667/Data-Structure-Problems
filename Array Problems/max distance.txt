@@ -1,0 +1,21 @@
+Given an array A of integers, find the maximum of j - i subjected to the constraint of A[i] <= A[j].
+
+int Solution::maximumGap(const vector<int> &A) {
+    int n=A.size();
+    if(n==1)
+    return 0;
+    vector<pair<int,int> >v;
+    for(int i=0;i<n;i++)
+    {
+        v.push_back(make_pair(A[i],i));
+    }
+    sort(v.begin(),v.end());
+    int ans=0;
+    int imax=v[n-1].second;
+    for(int i=n-2;i>=0;i--)
+    {
+        ans=max(ans,imax-v[i].second);
+        imax=max(imax,v[i].second);
+    }
+    return ans;
+}

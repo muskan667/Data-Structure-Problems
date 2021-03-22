@@ -1,0 +1,49 @@
+Find the lowest common ancestor in an unordered binary tree given two values in the tree.
+
+    Lowest common ancestor : the lowest common ancestor (LCA) of two nodes v and w in a tree or directed acyclic graph (DAG) is the lowest (i.e. deepest) node that has both v and w as descendants. 
+
+
+
+        _______3______
+       /              \
+    ___5__          ___1__
+   /      \        /      \
+   6      _2_     0        8
+         /   \
+         7    4
+
+For the above tree, the LCA of nodes 5 and 1 is 3.
+
+bool find(TreeNode* root,int val)
+{
+    if(!root)
+    return false;
+    if(root->val ==val)
+    return true;
+    if((root->left && find(root->left,val)) || (root->right && find(root->right,val)) )
+    return true;
+    return false;
+}
+
+TreeNode* LCA(TreeNode* A, int B, int C)
+{
+    if(!A || A->val==B ||A->val==C)
+    return A;
+    auto L = LCA(A->left,B,C);
+    auto R = LCA(A->right,B,C);
+    if(L && R)
+    return A;
+    return L?L:R;
+}
+ 
+int Solution::lca(TreeNode* A, int B, int C) {
+    if(!find(A,B) || !find(A,C))
+    {
+        return -1;
+    }
+    auto ancestor =LCA(A,B,C);
+    if(ancestor)
+     return ancestor->val;
+     
+    return -1; 
+}

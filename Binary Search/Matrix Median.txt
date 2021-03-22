@@ -1,0 +1,36 @@
+Given a matrix of integers A of size N x M in which each row is sorted.
+
+Find an return the overall median of the matrix A.
+
+Note: No extra memory is allowed.
+
+Note: Rows are numbered from top to bottom and columns are numbered from left to right.
+
+
+
+
+int Solution::findMedian(vector<vector<int> > &A) {
+    int r=A.size(),c=A[0].size(),mini=INT_MAX,maxi=INT_MIN;
+    for(auto i=0;i<r;i++)
+    {
+        if(A[i][0]<mini)
+        mini=A[i][0];
+        if(A[i][c-1]>maxi)
+        maxi=A[i][c-1];
+    }
+    int target=(r*c+1)/2;
+    while(mini<maxi)
+    {
+        int mid=mini+(maxi-mini)/2;
+        int count=0;
+        for(auto i=0;i<r;i++)
+        {
+            count+=upper_bound(A[i].begin(),A[i].end(),mid)-A[i].begin();
+        }
+        if(count<target)
+        mini=mid+1;
+        else
+        maxi=mid;
+    }
+    return mini;
+}
